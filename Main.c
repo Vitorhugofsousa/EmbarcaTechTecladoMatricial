@@ -41,9 +41,9 @@ char ler_teclado(uint8_t *colunas, uint8_t *linhas) {
 
 //função para ativar e desligar periféricos
 void piscar_periferico(perifericos){
-  gpio_periferico(perifericos, 1);
+  gpio_put(perifericos, 1);
   sleep_ms(2000); 
-  gpio_periferico(perifericos, 0);
+  gpio_put(perifericos, 0);
 }
 
 int main() {
