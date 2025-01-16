@@ -36,7 +36,8 @@ int main() {
 
     while (true){
         char tecla_pressionada = keypad_get();  //chama a funcao que verifica qual tecla foi pressionada
-
+        printf("Tecla pressionada: %c\n", tecla_pressionada);
+        
         switch(tecla_pressionada){
             case 'B':
             gpio_put(gpio_led_red, true);
