@@ -14,6 +14,15 @@ char teclas[16] = {
     '*', '0' , '#', 'D'
 };
 
+//inicializa o keypad
+void inicializa_teclado(uint colunas[4], uint linhas[4], char valores_matriz[16]) {
+//aguardando escrever funcao
+}
+
+char keypad_get(){
+//aguardando escrever funcao
+}
+
 int main() {
     stdio_init_all();
     gpio_init(gpio_led_red);
@@ -25,7 +34,18 @@ int main() {
     gpio_set_dir(gpio_led_blue, GPIO_OUT);
     gpio_set_dir(gpio_buzzer, GPIO_OUT);
 
-    while (true) {
+    while (true){
+        char tecla_pressionada = keypad_get();  //chama a funcao que verifica qual tecla foi pressionada
+
+        switch(tecla_pressionada){
+            case 'B':
+            gpio_put(gpio_led_red, true);
+            sleep_ms(2000);
+            gpio_put(gpio_led_red, false);
+
+            default:   
+            printf("Tecla não configurada");
+        }
         sleep_ms(100);
     }
 }
