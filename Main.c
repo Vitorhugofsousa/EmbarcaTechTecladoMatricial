@@ -5,6 +5,7 @@
 #define gpio_led_green 19
 #define gpio_led_blue 20
 #define gpio_buzzer 21
+
 //definição das colunas e das linhas e mapeamento do teclado
 int coluna[4] = {4, 3, 2, 1}; 
 int linha[4] = {8, 7, 6, 5};
@@ -14,6 +15,11 @@ char teclas[4][4] = {
     '7', '8' , '9', 'C',
     '*', '0' , '#', 'D'
 };
+
+//função de inicializar o teclado
+void inicializar_teclado(uint8_t *colunas, uint8_t *linhas){
+  //aguardando código
+}
 
 //função de leitura do teclado
 char ler_teclado(uint8_t *colunas, uint8_t *linhas) {
@@ -33,6 +39,13 @@ char ler_teclado(uint8_t *colunas, uint8_t *linhas) {
   return 0;
 }
 
+//função para ativar e desligar periféricos
+void piscar_periferico(perifericos){
+  gpio_put(perifericos, 1);
+  sleep_ms(2000); 
+  gpio_put(perifericos, 0);
+}
+
 int main() {
     stdio_init_all();
     gpio_init(gpio_led_red);
@@ -45,6 +58,18 @@ int main() {
     gpio_set_dir(gpio_buzzer, GPIO_OUT);
 
     while (true) {
-        sleep_ms(100);
-    }
+
+        char tecla_pressionada = ler_teclado(coluna, linha);  //Atribui a variável a tecla pressionada ao chamar a função
+        printf("Tecla pressionada: %c\n", tecla_pressionada);
+        
+        switch(tecla_pressionada){ // Analisa a tecla pressionada e executa a ação definido a ela
+            case 'A':
+            piscar_periferico(gpio_led_blue);
+            break;
+
+            default:   
+            printf("Tecla não configurada");
+        }
+      sleep_ms(100); // Delay para evitar leitura repetida 
+      }
 }
