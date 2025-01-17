@@ -50,8 +50,8 @@ char ler_teclado(uint8_t *colunas, uint8_t *linhas)
         gpio_put(linhas[i], 1); // Desativar linha
         return teclas[i][j];
       }
-      gpio_put(linhas[i], 1);
     }
+    gpio_put(linhas[i], 1);
   }
   return 0;
 }
