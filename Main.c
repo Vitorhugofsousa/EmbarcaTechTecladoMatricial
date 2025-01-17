@@ -16,6 +16,12 @@ char teclas[4][4] = {
     '*', '0' , '#', 'D'
 };
 
+//Função para ativar e desligar leds
+void piscar_led(uint gpio_led){   //Função que faz o led piscar com base no GPIO passado
+    gpio_put(gpio_led, true);            //Ligar o led
+    sleep_ms(2000);                      //Tempo de espera em milissegundos
+    gpio_put(gpio_led, false);           //Desligar o led
+
 //função de inicializar o teclado
 void inicializar_teclado(uint8_t *colunas, uint8_t *linhas){
   //aguardando código
@@ -39,13 +45,6 @@ char ler_teclado(uint8_t *colunas, uint8_t *linhas) {
   return 0;
 }
 
-//função para ativar e desligar periféricos
-void piscar_periferico(perifericos){
-  gpio_put(perifericos, 1);
-  sleep_ms(2000); 
-  gpio_put(perifericos, 0);
-}
-
 int main() {
     stdio_init_all();
     gpio_init(gpio_led_red);
@@ -64,7 +63,10 @@ int main() {
         
         switch(tecla_pressionada){ // Analisa a tecla pressionada e executa a ação definido a ela
             case 'A':
-            piscar_periferico(gpio_led_blue);
+            piscar_led(gpio_led_blue);   //Verifica se a tecla A foi pressionada
+            break;
+            case 'B':                    //Verifica se a tecla B foi pressionada
+            piscar_led(gpio_led_red);    //Chama a funcao piscar_periferico
             break;
 
             default:   
