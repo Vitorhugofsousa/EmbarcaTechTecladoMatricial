@@ -24,8 +24,17 @@ void piscar_led(uint gpio_led){   //Função que faz o led piscar com base no GP
 }
 //função de inicializar o teclado
 void inicializar_teclado(uint8_t *colunas, uint8_t *linhas){
-  //aguardando código
+  for (int i = 0; i < 4; i++) {
+    gpio_init(linhas[i]);
+    gpio_set_dir(linhas[i], GPIO_OUT);
+    gpio_put(linhas[i], 1); // Inicialmente em HIGH
+
+    gpio_init(colunas[i]);
+    gpio_set_dir(colunas[i], GPIO_IN);
+    gpio_pull_up(colunas[i]); // Habilita pull-up nas colunas
+  }
 }
+
 
 //função de leitura do teclado
 char ler_teclado(uint8_t *colunas, uint8_t *linhas) {
