@@ -57,44 +57,45 @@ char ler_teclado(uint8_t *colunas, uint8_t *linhas)
   return 0;
 }
 
-void pisca_led_branco() {
-    gpio_put(gpio_led_red, 1);
-    gpio_put(gpio_led_green, 1);
-    gpio_put(gpio_led_blue, 1);
-    sleep_ms(2000);
+void pisca_led_branco()
+{
+  gpio_put(gpio_led_red, 1);
+  gpio_put(gpio_led_green, 1);
+  gpio_put(gpio_led_blue, 1);
+  sleep_ms(2000);
 
-    gpio_put(gpio_led_red, 0);
-    gpio_put(gpio_led_green, 0);
-    gpio_put(gpio_led_blue, 0);
+  gpio_put(gpio_led_red, 0);
+  gpio_put(gpio_led_green, 0);
+  gpio_put(gpio_led_blue, 0);
 }
 
 void acionar_buzzer()
 {
-    gpio_put(gpio_buzzer, 1); // Liga o buzzer
-    sleep_ms(2000);            // Emite som por 2000ms
-    gpio_put(gpio_buzzer, 0); // Desliga o buzzer
+  gpio_put(gpio_buzzer, 1); // Liga o buzzer
+  sleep_ms(2000);           // Emite som por 2000ms
+  gpio_put(gpio_buzzer, 0); // Desliga o buzzer
 }
 
-  int main()
+int main()
+{
+  stdio_init_all();
+  gpio_init(gpio_led_red);
+  gpio_init(gpio_led_green);
+  gpio_init(gpio_led_blue);
+  gpio_init(gpio_buzzer);
+  gpio_set_dir(gpio_led_red, GPIO_OUT);
+  gpio_set_dir(gpio_led_green, GPIO_OUT);
+  gpio_set_dir(gpio_led_blue, GPIO_OUT);
+  gpio_set_dir(gpio_buzzer, GPIO_OUT);
+
+  inicializar_teclado(coluna, linha);
+
+  while (true)
   {
-    stdio_init_all();
-    gpio_init(gpio_led_red);
-    gpio_init(gpio_led_green);
-    gpio_init(gpio_led_blue);
-    gpio_init(gpio_buzzer);
-    gpio_set_dir(gpio_led_red, GPIO_OUT);
-    gpio_set_dir(gpio_led_green, GPIO_OUT);
-    gpio_set_dir(gpio_led_blue, GPIO_OUT);
-    gpio_set_dir(gpio_buzzer, GPIO_OUT);
-    gpio_put(gpio_buzzer, 0);
+    char tecla_pressionada = ler_teclado(coluna, linha); // Atribui a variável a tecla pressionada ao chamar a função
 
-    inicializar_teclado(coluna, linha);
-
-    while (true)
+    if (tecla_pressionada)
     {
-      char tecla_pressionada = ler_teclado(coluna, linha); // Atribui a variável a tecla pressionada ao chamar a função
-
-      if(tecla_pressionada){
       printf("Tecla pressionada: %c\n", tecla_pressionada);
 
       switch (tecla_pressionada)
@@ -107,7 +108,7 @@ void acionar_buzzer()
         piscar_led(gpio_led_red); // Chama a funcao piscar_periferico
         break;
 
-      case 'D':                      // Piscar luz branca uma vez
+      case 'D': // Piscar luz branca uma vez
         pisca_led_branco();
         break;
       case '#': // Verifica se a tecla # foi pressionada
@@ -119,5 +120,5 @@ void acionar_buzzer()
       }
       sleep_ms(100); // Delay para evitar leitura repetida
     }
-    }
   }
+}
