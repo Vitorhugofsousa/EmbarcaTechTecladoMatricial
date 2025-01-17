@@ -55,6 +55,18 @@ char ler_teclado(uint8_t *colunas, uint8_t *linhas)
     return 0;
   }
 }
+
+void pisca_led_branco() {
+    gpio_put(gpio_led_red, 1);
+    gpio_put(gpio_led_green, 1);
+    gpio_put(gpio_led_blue, 1);
+    sleep_ms(2000);
+
+    gpio_put(gpio_led_red, 0);
+    gpio_put(gpio_led_green, 0);
+    gpio_put(gpio_led_blue, 0);
+}
+
   int main()
   {
     stdio_init_all();
@@ -84,16 +96,7 @@ char ler_teclado(uint8_t *colunas, uint8_t *linhas)
         break;
 
       case 'D':                      // Piscar luz branca uma vez
-        gpio_put(gpio_led_red, 1);   // Liga o LED vermelho
-        gpio_put(gpio_led_green, 1); // Liga o LED verde
-        gpio_put(gpio_led_blue, 1);  // Liga o LED azul
-        sleep_ms(2000);              // Mantém aceso por 2000ms
-
-        gpio_put(gpio_led_red, 0);   // Desliga o LED vermelho
-        gpio_put(gpio_led_green, 0); // Desliga o LED verde
-        gpio_put(gpio_led_blue, 0);  // Desliga o LED azul
-
-        tecla_pressionada = '\0'; // Reseta o comando para evitar repetição
+        pisca_led_branco();
         break;
 
       default:
