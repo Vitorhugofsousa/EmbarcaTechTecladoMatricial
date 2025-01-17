@@ -24,11 +24,11 @@ char ler_teclado() {
 //aguardando
 }
 
-//função para ativar e desligar periféricos
-void piscar_periferico(uint perifericos){
-    gpio_put(perifericos, true);
-    sleep_ms(2000);
-    gpio_put(perifericos, false);
+//Função para ativar e desligar leds
+void piscar_periferico(uint gpio_led){   //Função que faz o led piscar com base no GPIO passado
+    gpio_put(gpio_led, true);            //Ligar o led
+    sleep_ms(2000);                      //Tempo de espera em milissegundos
+    gpio_put(gpio_led, false);           //Desligar o led
 }
 
 int main() {
@@ -46,12 +46,14 @@ int main() {
         char tecla_pressionada = ler_teclado();  //chama a funcao que verifica qual tecla foi pressionada
         printf("Tecla pressionada: %c\n", tecla_pressionada);
         
-        switch(tecla_pressionada){
-            case 'B':
-            piscar_periferico(gpio_led_red);
-            break;
+        //Entrar na estrutura para verificar a tecla pressionada
+        switch(tecla_pressionada){              
+            case 'B':                           //Verifica se a tecla B foi pressionada
+            piscar_periferico(gpio_led_red);    //Chama a funcao piscar_periferico
+            break;  
+
             default:   
-            printf("Tecla não configurada");
+            printf("Tecla não configurada");    //caso alguma tecla fora do escopo configurado foi pressionada
         }
         sleep_ms(100); //Delay para evitar leitura repetida
     }
