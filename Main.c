@@ -19,8 +19,16 @@ void inicializa_teclado(uint colunas[4], uint linhas[4], char valores_matriz[16]
 //aguardando escrever funcao
 }
 
-char keypad_get(){
-//aguardando escrever funcao
+//função de leitura do teclado
+char ler_teclado() {
+//aguardando
+}
+
+//função para ativar e desligar periféricos
+void piscar_periferico(uint perifericos){
+    gpio_put(perifericos, true);
+    sleep_ms(2000);
+    gpio_put(perifericos, false);
 }
 
 int main() {
@@ -35,18 +43,16 @@ int main() {
     gpio_set_dir(gpio_buzzer, GPIO_OUT);
 
     while (true){
-        char tecla_pressionada = keypad_get();  //chama a funcao que verifica qual tecla foi pressionada
+        char tecla_pressionada = ler_teclado();  //chama a funcao que verifica qual tecla foi pressionada
         printf("Tecla pressionada: %c\n", tecla_pressionada);
         
         switch(tecla_pressionada){
             case 'B':
-            gpio_put(gpio_led_red, true);
-            sleep_ms(2000);
-            gpio_put(gpio_led_red, false);
-
+            piscar_periferico(gpio_led_red);
+            break;
             default:   
             printf("Tecla não configurada");
         }
-        sleep_ms(100);
+        sleep_ms(100); //Delay para evitar leitura repetida
     }
 }
