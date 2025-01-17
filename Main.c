@@ -7,8 +7,8 @@
 #define gpio_buzzer 21
 
 // definição das colunas e das linhas e mapeamento do teclado
-int coluna[4] = {4, 3, 2, 1};
-int linha[4] = {8, 7, 6, 5};
+uint8_t coluna[4] = {4, 3, 2, 1};
+uint8_t linha[4] = {8, 7, 6, 5};
 char teclas[4][4] = {
     '1', '2', '3', 'A',
     '4', '5', '6', 'B',
@@ -52,8 +52,8 @@ char ler_teclado(uint8_t *colunas, uint8_t *linhas)
       }
       gpio_put(linhas[i], 1);
     }
-    return 0;
   }
+  return 0;
 }
 
 void pisca_led_branco() {
@@ -79,10 +79,13 @@ void pisca_led_branco() {
     gpio_set_dir(gpio_led_blue, GPIO_OUT);
     gpio_set_dir(gpio_buzzer, GPIO_OUT);
 
+    inicializar_teclado(coluna, linha);
+
     while (true)
     {
-
       char tecla_pressionada = ler_teclado(coluna, linha); // Atribui a variável a tecla pressionada ao chamar a função
+
+      if(tecla_pressionada){
       printf("Tecla pressionada: %c\n", tecla_pressionada);
 
       switch (tecla_pressionada)
@@ -100,8 +103,9 @@ void pisca_led_branco() {
         break;
 
       default:
-        printf("Tecla não configurada");
+        printf("Tecla não configurada\n");
       }
       sleep_ms(100); // Delay para evitar leitura repetida
+    }
     }
   }
