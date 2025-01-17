@@ -48,6 +48,7 @@ char ler_teclado(uint8_t *colunas, uint8_t *linhas)
       if (!gpio_get(colunas[j]))
       {                         // Detectar coluna ativa
         gpio_put(linhas[i], 1); // Desativar linha
+        sleep_ms(10);
         return teclas[i][j];
       }
     }
@@ -67,6 +68,13 @@ void pisca_led_branco() {
     gpio_put(gpio_led_blue, 0);
 }
 
+void acionar_buzzer()
+{
+    gpio_put(gpio_buzzer, 1); // Liga o buzzer
+    sleep_ms(2000);            // Emite som por 2000ms
+    gpio_put(gpio_buzzer, 0); // Desliga o buzzer
+}
+
   int main()
   {
     stdio_init_all();
@@ -78,6 +86,7 @@ void pisca_led_branco() {
     gpio_set_dir(gpio_led_green, GPIO_OUT);
     gpio_set_dir(gpio_led_blue, GPIO_OUT);
     gpio_set_dir(gpio_buzzer, GPIO_OUT);
+    gpio_put(gpio_buzzer, 0);
 
     inicializar_teclado(coluna, linha);
 
@@ -100,6 +109,9 @@ void pisca_led_branco() {
 
       case 'D':                      // Piscar luz branca uma vez
         pisca_led_branco();
+        break;
+      case '#': // Verifica se a tecla # foi pressionada
+        acionar_buzzer();
         break;
 
       default:
