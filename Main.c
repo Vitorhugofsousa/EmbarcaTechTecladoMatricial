@@ -21,7 +21,7 @@ void piscar_led(uint gpio_led){   //Função que faz o led piscar com base no GP
     gpio_put(gpio_led, true);            //Ligar o led
     sleep_ms(2000);                      //Tempo de espera em milissegundos
     gpio_put(gpio_led, false);           //Desligar o led
-
+}
 //função de inicializar o teclado
 void inicializar_teclado(uint8_t *colunas, uint8_t *linhas){
   //aguardando código
