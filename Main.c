@@ -65,9 +65,23 @@ int main() {
             case 'A':
             piscar_led(gpio_led_blue);   //Verifica se a tecla A foi pressionada
             break;
+
             case 'B':                    //Verifica se a tecla B foi pressionada
             piscar_led(gpio_led_red);    //Chama a funcao piscar_periferico
             break;
+
+            case 'D': // Piscar luz branca uma vez
+              gpio_put(gpio_led_red, 1);   // Liga o LED vermelho
+              gpio_put(gpio_led_green, 1); // Liga o LED verde
+              gpio_put(gpio_led_blue, 1);  // Liga o LED azul
+              sleep_ms(500);          // Mantém aceso por 500ms
+
+              gpio_put(gpio_led_red, 0);   // Desliga o LED vermelho
+              gpio_put(gpio_led_green, 0); // Desliga o LED verde
+              gpio_put(gpio_led_blue, 0);  // Desliga o LED azul
+
+              tecla_pressionada = '\0';         // Reseta o comando para evitar repetição
+              break;
 
             default:   
             printf("Tecla não configurada");
