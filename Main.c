@@ -108,6 +108,10 @@ int main()
         piscar_led(gpio_led_red); // Chama a funcao piscar_periferico
         break;
 
+      case 'C':                     // Verifica se  a tecla C foi pressionada
+        piscar_led(gpio_led_green); // Chma a função piscar_periferico
+        break;
+
       case 'D': // Piscar luz branca uma vez
         pisca_led_branco();
         break;
