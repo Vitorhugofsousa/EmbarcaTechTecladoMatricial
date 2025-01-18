@@ -83,7 +83,7 @@ int main()
   gpio_set_dir(gpio_led_green, GPIO_OUT);
   gpio_set_dir(gpio_led_blue, GPIO_OUT);
   gpio_set_dir(gpio_buzzer, GPIO_OUT);
-
+  gpio_put(gpio_buzzer, 0);
   inicializar_teclado(coluna, linha);
   
 
