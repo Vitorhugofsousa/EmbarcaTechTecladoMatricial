@@ -72,4 +72,10 @@ int main() {
         }
       sleep_ms(100); // Delay para evitar leitura repetida 
       }
+<<<<<<< Updated upstream
+=======
+    }
+    sleep_ms(100); // Delay para evitar leitura repetida
+  }
+>>>>>>> Stashed changes
 }
