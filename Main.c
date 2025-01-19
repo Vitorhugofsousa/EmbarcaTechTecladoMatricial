@@ -127,5 +127,6 @@ int main()
       }
       sleep_ms(100); // Delay para evitar leitura repetida
     }
+    sleep_ms(100);
   }
 }
