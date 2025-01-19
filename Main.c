@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include "pico/stdlib.h"
+#include "hardware/pwm.h"
 
 #define gpio_led_red 18
 #define gpio_led_green 19
@@ -31,15 +32,12 @@ void inicializar_teclado() {
 char ler_teclado(uint8_t *colunas, uint8_t *linhas) {
   for (int i = 0; i < 4; i++) {
     gpio_put(linhas[i], 0);
-    uint8_t result = 0;
-    for (int j = 0; j < 4; j++){
-      result |= gpio_get(colunas[j]);
-    }
-    if (result == 0) {
-      char key = teclas[i][__builtin_ctz(result)];
-      gpio_put(linhas[i], 1);
-      return key;
-    }
+    for (int j = 0; j < 4; j++) {
+            if (!gpio_get(colunas[j])) { // Verifica se a coluna está LOW
+                gpio_put(linhas[i], 1);  // Restaura a linha
+                return teclas[i][j];    // Retorna a tecla correspondente
+            }
+        }
     gpio_put(linhas[i], 1);
   }
   return 0;
@@ -67,9 +65,17 @@ void pisca_led_branco()
 
 void acionar_buzzer()
 {
-  gpio_put(gpio_buzzer, 1); // Liga o buzzer
-  sleep_ms(2000);           // Emite som por 2000ms
-  gpio_put(gpio_buzzer, 0); // Desliga o buzzer
+  gpio_set_function(gpio_buzzer, GPIO_FUNC_PWM);      // Configura pino como saída PWM
+    uint slice_num = pwm_gpio_to_slice_num(gpio_buzzer); // Obter o slice do PWM
+
+    pwm_set_clkdiv(slice_num, 125.0);                  
+    pwm_set_wrap(slice_num, 255);                      
+    pwm_set_gpio_level(gpio_buzzer, 150);              
+    pwm_set_enabled(slice_num, true);                  // Ativar o PWM
+
+    sleep_ms(2000);                                    // Manter o som por 2 segundos
+
+    pwm_set_enabled(slice_num, false);                 // Desativar o PWM  
 }
 
 int main()
