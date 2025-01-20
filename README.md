@@ -26,5 +26,5 @@ Piscar LED Azul (Tecla A) - Abel<br>
 Piscar LED Vermelho (Tecla B)- Leonam<br>
 Piscar LED Verde (Tecla C)- Cláudio Evaristo<br> 
 Piscar LED Branco (Todos os LEDs) (Tecla D)- Rian<br>
-Tocar Buzzer (Hashtag) - Duda<br>
+Tocar Buzzer (Hashtag) - Maria Eduarda Ramalho<br>
 Tester e Produção do Vídeo - Pedro Sousa
