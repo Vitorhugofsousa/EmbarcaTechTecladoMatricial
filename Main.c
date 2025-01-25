@@ -47,7 +47,7 @@ char ler_teclado(uint8_t *colunas, uint8_t *linhas) {
 void piscar_led(uint gpio_led)
 {                            // Função que faz o led piscar com base no GPIO passado
   gpio_put(gpio_led, true);  // Ligar o led
-  sleep_ms(2000);            // Tempo de espera em milissegundos
+  sleep_ms(1000);            // Tempo de espera em milissegundos
   gpio_put(gpio_led, false); // Desligar o led
 }
 
@@ -56,7 +56,7 @@ void pisca_led_branco()
   gpio_put(gpio_led_red, 1);
   gpio_put(gpio_led_green, 1);
   gpio_put(gpio_led_blue, 1);
-  sleep_ms(2000);
+  sleep_ms(1000);
 
   gpio_put(gpio_led_red, 0);
   gpio_put(gpio_led_green, 0);
@@ -73,7 +73,7 @@ void acionar_buzzer()
     pwm_set_gpio_level(gpio_buzzer, 150);              
     pwm_set_enabled(slice_num, true);                  // Ativar o PWM
 
-    sleep_ms(2000);                                    // Manter o som por 2 segundos
+    sleep_ms(1000);                                    // Manter o som por 2 segundos
 
     pwm_set_enabled(slice_num, false);                 // Desativar o PWM  
 }
@@ -125,7 +125,7 @@ int main()
       default:
         printf("Tecla não configurada\n");
       }
-      sleep_ms(100); // Delay para evitar leitura repetida
+
     }
     sleep_ms(100);
   }
