@@ -14,8 +14,6 @@ Tecla #: Tocar o Buzzer
 
 # Vídeo Explicativo
 
-No link a seguir há um vídeo contendo a explicação das funções no código escrito na linguagem C:<br><br>
-https://www.youtube.com/watch?v=oZU5AMwgxkE
 
 # Contribuições
 
